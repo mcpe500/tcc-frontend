@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
+
+
 import '../styles/login.css';
 
 function Login() {
@@ -14,11 +17,26 @@ function Login() {
     setPassword(e.target.value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // TODO: Implement login logic
-    console.log('Login form submitted');
+
+    // Create an object with the data to send
+    const data = {
+      email: email,
+      password: password
+    };
+
+    await axios.post("http://localhost:3002/api/login", data)
+      .then(response => {
+        // Handle the response data
+        console.log(response.data);
+      })
+      .catch(error => {
+        // Handle the error
+        console.error(error);
+      });
   };
+
 
   return (
     <div className="login-container">
