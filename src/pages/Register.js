@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/register.css'
+import axios from 'axios';
+import { serverURL } from '../config/env';
 
 function Register() {
   const [username, setUsername] = useState('');
@@ -23,11 +25,22 @@ function Register() {
   const handleConfirmPasswordChange = (e) => {
     setConfirmPassword(e.target.value);
   };
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // TODO: Implement registration logic
-    console.log('Register form submitted');
+    const data = {
+      username: username,
+      email: email,
+      password: password,
+    }
+    await axios.post(serverURL + "/api/register", data)
+      .then(response => {
+        // Handle the response data
+        console.log(response.data);
+      })
+      .catch(error => {
+        // Handle the error
+        console.error(error);
+      });
   };
 
   return (

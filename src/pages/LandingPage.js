@@ -1,8 +1,10 @@
 import React from 'react';
 import '../styles/landingPage.css';
+import { year } from '../config/env';
 
 const LandingPage = () => {
-  const currentYear = new Date().getFullYear();
+  const tYear = new Date().getFullYear();
+  const currentYear = year < tYear ? tYear : year;
 
   return (
     <div className="landing-page">

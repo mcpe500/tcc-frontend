@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import Navbar from './components/navbar';
 
@@ -8,6 +8,7 @@ import './App.css';
 import Register from './pages/Register';
 import Login from './pages/Login';
 import LandingPage from './pages/LandingPage';
+import UserDashboard from './pages/UserDashboard';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="/" element={<LandingPage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/dashboard" element={<UserDashboard />} />
         </Routes>
       </div>
     </Router>

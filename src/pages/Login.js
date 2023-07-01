@@ -4,6 +4,8 @@ import axios from 'axios';
 
 
 import '../styles/login.css';
+import { serverURL } from '../config/env';
+import { storeToken } from '../utils/authentication';
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -16,23 +18,19 @@ function Login() {
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
   };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    // Create an object with the data to send
+    
     const data = {
       email: email,
       password: password
     };
 
-    await axios.post("http://localhost:3002/api/login", data)
+    await axios.post(serverURL + "/api/login", data)
       .then(response => {
-        // Handle the response data
-        console.log(response.data);
+        storeToken(response.data.token);
       })
       .catch(error => {
-        // Handle the error
         console.error(error);
       });
   };
