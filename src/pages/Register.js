@@ -34,11 +34,9 @@ function Register() {
     }
     await axios.post(serverURL + "/api/register", data)
       .then(response => {
-        // Handle the response data
         console.log(response.data);
       })
       .catch(error => {
-        // Handle the error
         console.error(error);
       });
   };
