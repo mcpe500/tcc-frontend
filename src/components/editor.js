@@ -1,12 +1,11 @@
-import React, { useState } from 'react';
-import { authenticated, logout } from '../utils/authentication';
+import React from 'react';
+
 import CodeMirror from '@uiw/react-codemirror';
 import { vscodeDark } from '@uiw/codemirror-theme-vscode';
 
 import { javascript } from '@codemirror/lang-javascript';
 
-const Editor = ({ code,setCode }) => {
-    //   const [code, setCode] = useState('console.log("Hello, world!");');
+const Editor = ({ code, setCode }) => {
     const options = {
         theme: vscodeDark,
         extraKeys: {
@@ -17,10 +16,14 @@ const Editor = ({ code,setCode }) => {
         mode: javascript(),
     };
 
+    const handleChange = (value) => {
+        setCode(value);
+        // console.log(code)
+    };
+
     return (
         <>
-            <CodeMirror value={code} options={options} onChange={setCode} />
-            {code}
+            <CodeMirror value={code} options={options} onChange={handleChange} />
         </>
     );
 };

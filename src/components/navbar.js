@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 import '../styles/navbar.css'
-import axios from 'axios';
-import { serverURL } from '../config/env';
 import { authenticated, logout } from '../utils/authentication'
 
 const Navbar = () => {
