@@ -1,5 +1,7 @@
 import React from 'react';
 
+import "../styles/editor.css"
+
 import CodeMirror from '@uiw/react-codemirror';
 import { vscodeDark } from '@uiw/codemirror-theme-vscode';
 
@@ -22,9 +24,9 @@ const Editor = ({ code, setCode }) => {
     };
 
     return (
-        <>
+        <div className='editor'>
             <CodeMirror value={code} options={options} onChange={handleChange} />
-        </>
+        </div>
     );
 };
 

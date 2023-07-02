@@ -28,7 +28,7 @@ const CodeEditor = () => {
         axios.defaults.headers.common["Authorization"] = `Bearer ${getToken()}`;
         await axios.post(serverURL + "/api/code", data)
             .then(res => {
-                console.log(res);
+                // console.log(res);
                 setResult(res.data.output);
             })
             .catch(error => {
@@ -37,7 +37,7 @@ const CodeEditor = () => {
     }
 
     expected = addIndex(expected);
-    console.log(expected);
+    // console.log(expected);
     return (
         <div className="code-editor">
             <pre>{result}</pre>
