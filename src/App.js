@@ -9,6 +9,7 @@ import Register from './pages/Register';
 import Login from './pages/Login';
 import LandingPage from './pages/LandingPage';
 import UserDashboard from './pages/UserDashboard';
+import CodeEditor from './pages/CodeEditor';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/dashboard" element={<UserDashboard />} />
+          <Route path="/editor" element={<CodeEditor />}></Route>
         </Routes>
       </div>
     </Router>

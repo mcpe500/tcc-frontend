@@ -1,70 +1,28 @@
-// import React, { useEffect, useState } from 'react';
-// import { Link, useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import { authenticated, logout } from '../utils/authentication';
+import CodeMirror from '@uiw/react-codemirror';
+import { vscodeDark } from '@uiw/codemirror-theme-vscode';
 
-// import '../styles/navbar.css'
-// import axios from 'axios';
-// import { serverURL } from '../config/env';
-// import { logout } from '../utils/authentication'
+import { javascript } from '@codemirror/lang-javascript';
 
-// const Editor = () => {
-//   const [navbarState, setNavbarState] = useState(false);
-//   const navigate = useNavigate();
+const Editor = ({ code,setCode }) => {
+    //   const [code, setCode] = useState('console.log("Hello, world!");');
+    const options = {
+        theme: vscodeDark,
+        extraKeys: {
+            Tab: false, // Disable the default behavior of Tab key
+        },
+        lineNumbers: true,
+        autofocus: true,
+        mode: javascript(),
+    };
 
-//   const fetchUserData = async () => {
-//     try {
-//       const token = localStorage.getItem("tcc-auth-token");
+    return (
+        <>
+            <CodeMirror value={code} options={options} onChange={setCode} />
+            {code}
+        </>
+    );
+};
 
-//       axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-
-//       const response = await axios.get(`${serverURL}/api/authenticate`);
-//       console.log("navbar state: " + JSON.stringify(response.data));
-//       setNavbarState(response.data.authenticated);
-//     } catch (error) {
-//       console.error("Error fetching user data:", error);
-//     }
-//   };
-
-//   fetchUserData();
-
-//   const handleLogout = () => {
-//     logout();
-//     return navigate("/");
-//   }
-//   const loggedInNavbar = () => {
-//     return (
-//       <>
-//         <li>
-//           <Link to="/editor" className='nav-link' onClick={fetchUserData}>Editor</Link>
-//         </li>
-//         <li>
-//           <Link to="/quiz" className='nav-link' onClick={fetchUserData}>Quiz</Link>
-//         </li>
-//         <li>
-//           <button onClick={handleLogout}>Logout</button>
-//         </li>
-//       </>
-//     )
-//   }
-//   const notLoggedInNavbar = () => {
-//     return (
-//       <>
-//         <li>
-//           <Link to="/login" className='nav-link' onClick={fetchUserData}>Login</Link>
-//         </li>
-//         <li>
-//           <Link to="/register" className='nav-link' onClick={fetchUserData}>Register</Link>
-//         </li>
-//       </>
-//     )
-//   }
-
-//   return (
-//     <nav>
-//       <ul>
-//         {navbarState ? loggedInNavbar() : notLoggedInNavbar()}
-//       </ul>
-//     </nav>
-//   );
-// };
-
-// export default Navbar;
+export default Editor;
