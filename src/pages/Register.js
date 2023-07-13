@@ -9,6 +9,7 @@ function Register() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [registerState, setRegisterState] = useState(null); // Menambahkan nilai awal null untuk registerState
 
   const handleUsernameChange = (e) => {
     setUsername(e.target.value);
@@ -32,13 +33,14 @@ function Register() {
       email: email,
       password: password,
     }
-    await axios.post(serverURL + "/api/register", data)
-      .then(response => {
-        console.log(response.data);
-      })
-      .catch(error => {
-        console.error(error);
-      });
+    try {
+      const response = await axios.post(serverURL + "/api/register", data);
+      console.log(response.data);
+      setRegisterState(true); // Registrasi berhasil, set registerState ke true
+    } catch (error) {
+      console.error(error);
+      setRegisterState(false); // Registrasi gagal, set registerState ke false
+    }
   };
 
   return (
@@ -86,6 +88,8 @@ function Register() {
             Register
           </button>
         </form>
+        {registerState === true && <p>Registration successful!</p>}
+        {registerState === false && <p>Registration failed. Please try again.</p>}
         <p>
           Already have an account? <Link to="/login">Login</Link>
         </p>

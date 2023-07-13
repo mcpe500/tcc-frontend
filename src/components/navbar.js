@@ -1,61 +1,46 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
 
-import '../styles/navbar.css'
-import { authenticated, logout } from '../utils/authentication'
+import '../styles/navbar.css';
+import { logout, isAuthenticated } from '../utils/authentication';
 
 const Navbar = () => {
-  const [navbarState, setNavbarState] = useState(false);
   const navigate = useNavigate();
-
-  const fetchUserData = async () => {
-    try {
-      setNavbarState(await authenticated());
-    } catch (error) {
-      console.error("Error fetching user data:", error);
-    }
-  };
-
-  fetchUserData();
 
   const handleLogout = () => {
     logout();
-    return navigate("/");
-  }
-  const loggedInNavbar = () => {
-    return (
-      <>
-        <li>
-          <Link to="/editor" className='nav-link' onClick={fetchUserData}>Editor</Link>
-        </li>
-        <li>
-          <Link to="/quiz" className='nav-link' onClick={fetchUserData}>Quiz</Link>
-        </li>
-        <li>
-          <button onClick={handleLogout}>Logout</button>
-        </li>
-      </>
-    )
-  }
-  const notLoggedInNavbar = () => {
-    return (
-      <>
-        <li>
-          <Link to="/login" className='nav-link' onClick={fetchUserData}>Login</Link>
-        </li>
-        <li>
-          <Link to="/register" className='nav-link' onClick={fetchUserData}>Register</Link>
-        </li>
-      </>
-    )
-  }
+    navigate('/');
+  };
 
   return (
-    <nav>
-      <ul>
-        {navbarState ? loggedInNavbar() : notLoggedInNavbar()}
-      </ul>
-    </nav>
+    <header>
+      <nav>
+        <ul>
+          {isAuthenticated ? (
+            <>
+              <li>
+                <NavLink to="/editor" className="nav-link" activeStyle={{ fontWeight: "bold" }}>Editor</NavLink>
+              </li>
+              <li>
+                <NavLink to="/quiz" className="nav-link" activeStyle={{ fontWeight: "bold" }}>Quiz</NavLink>
+              </li>
+              <li>
+                <button onClick={handleLogout}>Logout</button>
+              </li>
+            </>
+          ) : (
+            <>
+              <li>
+                <NavLink to="/login" className="nav-link" activeStyle={{ fontWeight: "bold" }}>Login</NavLink>
+              </li>
+              <li>
+                <NavLink to="/register" className="nav-link" activeStyle={{ fontWeight: "bold" }}>Register</NavLink>
+              </li>
+            </>
+          )}
+        </ul>
+      </nav>
+    </header>
   );
 };
 

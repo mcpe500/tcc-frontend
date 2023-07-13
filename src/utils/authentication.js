@@ -10,11 +10,19 @@ export const getToken = () => {
 };
 
 export const logout = () => {
-    localStorage.removeItem('tcc-auth-token');
-}
+    localStorage.removeItem("tcc-auth-token");
+};
 
-export const authenticated = async () => {
-    axios.defaults.headers.common["Authorization"] = `Bearer ${getToken()}`;
-    const { data } = await axios.get(`${serverURL}/api/authenticate`);
-    return data.authenticated;
-}
+export const isAuthenticated = async () => {
+    try {
+        axios.defaults.headers.common["Authorization"] = `Bearer ${getToken()}`;
+        const { data } = await axios.get(`${serverURL}/api/authentication`);
+        if (data) {
+            return true;
+        }
+        return false;
+    } catch (error) {
+        console.error("Error verifying authentication:", error);
+        return false;
+    }
+};
