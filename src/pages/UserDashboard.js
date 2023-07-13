@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { serverURL } from "../config/env";
+import Navbar from "../components/navbar";
 
 function UserDashboard() {
     const [userData, setUserData] = useState(null);
@@ -25,6 +26,7 @@ function UserDashboard() {
 
     return (
         <div>
+            <Navbar />
             {userData ? (
                 <>
                     <h2>Welcome, {userData.username}!</h2>

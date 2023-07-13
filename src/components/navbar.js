@@ -1,28 +1,38 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 
 import '../styles/navbar.css';
-import { logout, isAuthenticated } from '../utils/authentication';
+import { isAuthenticated, logout } from '../utils/authentication';
 
 const Navbar = () => {
+  const [loginState, setLoginState] = useState(false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    handleClick()
+  }, [])
 
   const handleLogout = () => {
     logout();
+    setLoginState(false);
     navigate('/');
+  };
+
+  const handleClick = async () => {
+    setLoginState(await isAuthenticated());
   };
 
   return (
     <header>
       <nav>
         <ul>
-          {isAuthenticated ? (
+          {loginState ? (
             <>
               <li>
-                <NavLink to="/editor" className="nav-link" activeStyle={{ fontWeight: "bold" }}>Editor</NavLink>
+                <NavLink onClick={handleClick} to="/editor" className="nav-link" activeClassName="active" exact>Editor</NavLink>
               </li>
               <li>
-                <NavLink to="/quiz" className="nav-link" activeStyle={{ fontWeight: "bold" }}>Quiz</NavLink>
+                <NavLink onClick={handleClick} to="/quiz" className="nav-link" activeClassName="active" exact>Quiz</NavLink>
               </li>
               <li>
                 <button onClick={handleLogout}>Logout</button>
@@ -31,10 +41,10 @@ const Navbar = () => {
           ) : (
             <>
               <li>
-                <NavLink to="/login" className="nav-link" activeStyle={{ fontWeight: "bold" }}>Login</NavLink>
+                <NavLink onClick={handleClick} to="/login" className="nav-link" activeClassName="active" exact>Login</NavLink>
               </li>
               <li>
-                <NavLink to="/register" className="nav-link" activeStyle={{ fontWeight: "bold" }}>Register</NavLink>
+                <NavLink onClick={handleClick} to="/register" className="nav-link" activeClassName="active" exact>Register</NavLink>
               </li>
             </>
           )}

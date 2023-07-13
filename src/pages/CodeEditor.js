@@ -5,6 +5,7 @@ import { addIndex } from '../utils/editorFunctions';
 import axios from 'axios';
 import { serverURL } from '../config/env';
 import { getToken } from '../utils/authentication';
+import Navbar from '../components/navbar';
 
 const CodeEditor = () => {
     const [code, setCode] = useState('');
@@ -39,12 +40,15 @@ const CodeEditor = () => {
     expected = addIndex(expected);
     // console.log(expected);
     return (
-        <div className="code-editor">
-            <pre>{result}</pre>
-            <Editor code={code} setCode={setCode} />
-            <EditorInOutController expected={expected} />
-            <button className='run-code' onClick={runCode}>Run Code</button>
-        </div>
+        <>
+            <Navbar />
+            <div className="code-editor">
+                <pre>{result}</pre>
+                <Editor code={code} setCode={setCode} />
+                <EditorInOutController expected={expected} />
+                <button className='run-code' onClick={runCode}>Run Code</button>
+            </div>
+        </>
     );
 };
 

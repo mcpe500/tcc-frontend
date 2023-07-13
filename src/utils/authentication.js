@@ -17,6 +17,7 @@ export const isAuthenticated = async () => {
     try {
         axios.defaults.headers.common["Authorization"] = `Bearer ${getToken()}`;
         const { data } = await axios.get(`${serverURL}/api/authentication`);
+        console.log(data);
         if (data) {
             return true;
         }

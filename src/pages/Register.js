@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import '../styles/register.css'
 import axios from 'axios';
 import { serverURL } from '../config/env';
+import Navbar from '../components/navbar';
 
 function Register() {
   const [username, setUsername] = useState('');
@@ -44,57 +45,60 @@ function Register() {
   };
 
   return (
-    <div className="register-container">
-      <div className="register-card">
-        <h2>Register</h2>
-        <form className="register-form" onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label htmlFor="username">Username</label>
-            <input
-              type="text"
-              id="username"
-              value={username}
-              onChange={handleUsernameChange}
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="email">Email</label>
-            <input
-              type="email"
-              id="email"
-              value={email}
-              onChange={handleEmailChange}
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="password">Password</label>
-            <input
-              type="password"
-              id="password"
-              value={password}
-              onChange={handlePasswordChange}
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="confirmPassword">Confirm Password</label>
-            <input
-              type="password"
-              id="confirmPassword"
-              value={confirmPassword}
-              onChange={handleConfirmPasswordChange}
-            />
-          </div>
-          <button type="submit" className="register-btn">
-            Register
-          </button>
-        </form>
-        {registerState === true && <p>Registration successful!</p>}
-        {registerState === false && <p>Registration failed. Please try again.</p>}
-        <p>
-          Already have an account? <Link to="/login">Login</Link>
-        </p>
+    <>
+      <Navbar />
+      <div className="register-container">
+        <div className="register-card">
+          <h2>Register</h2>
+          <form className="register-form" onSubmit={handleSubmit}>
+            <div className="form-group">
+              <label htmlFor="username">Username</label>
+              <input
+                type="text"
+                id="username"
+                value={username}
+                onChange={handleUsernameChange}
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="email">Email</label>
+              <input
+                type="email"
+                id="email"
+                value={email}
+                onChange={handleEmailChange}
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="password">Password</label>
+              <input
+                type="password"
+                id="password"
+                value={password}
+                onChange={handlePasswordChange}
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="confirmPassword">Confirm Password</label>
+              <input
+                type="password"
+                id="confirmPassword"
+                value={confirmPassword}
+                onChange={handleConfirmPasswordChange}
+              />
+            </div>
+            <button type="submit" className="register-btn">
+              Register
+            </button>
+          </form>
+          {registerState === true && <p>Registration successful!</p>}
+          {registerState === false && <p>Registration failed. Please try again.</p>}
+          <p>
+            Already have an account? <Link to="/login">Login</Link>
+          </p>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 
